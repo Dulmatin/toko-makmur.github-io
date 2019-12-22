@@ -43,7 +43,7 @@ class UnitController extends Controller
      */
     public function create()
     {
-       return view('pages.unit.create');
+        return view('pages.' . $this->view . '.create');
     }
 
     /**
@@ -60,8 +60,6 @@ class UnitController extends Controller
         $this->model->create($input);
 
         return redirect()->route($this->view . '.index');
-     
-
     }
 
     /**
@@ -72,7 +70,9 @@ class UnitController extends Controller
      */
     public function show($id)
     {
-       return view('unit.index',['unit'=>Unit::findOrFail($id)]);
+        $data = Unit::findOrFail($id);
+
+        return view('pages.' . $this->view . '.show', ['data' => $data]);
     }
 
     /**
@@ -85,7 +85,7 @@ class UnitController extends Controller
     {
         $data = $this->model->findOrFail($id);
 
-        return view('pages.'. $this->view. '.edit', compact('data'));
+        return view('pages.' . $this->view . '.edit', compact('data'));
     }
 
     /**
@@ -102,8 +102,7 @@ class UnitController extends Controller
         $data = $this->model->findOrFail($id);
         $data->update($input);
 
-        return redirect()->route($this->view. '.index');
-
+        return redirect()->route($this->view . '.index');
     }
     /**
      * Remove the specified resource from storage.
@@ -116,6 +115,6 @@ class UnitController extends Controller
         $data = $this->model->findOrfail($id);
         $data->delete();
 
-        return redirect()->route($this->view .'.index');
+        return redirect()->route($this->view . '.index');
     }
 }
