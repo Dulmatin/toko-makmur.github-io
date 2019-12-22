@@ -62,6 +62,28 @@ Route::delete('/unit/{id}/delete', 'UnitController@destroy')
         ->name('unit.destroy');
 
 
+//Customer 
+
+Route::get('/customers','CustomerController@index')
+        ->name('customer.index');
+
+Route::get('/customer/create','CustomerController@create')
+        ->name('customer.create');
+       
+Route::post('/customer/store','CustomerController@store')
+        ->name('customer.store');
+
+Route::get('/customer/{id}', 'CustomerController@show')
+        ->name('customer.show');
+
+Route::get('/customer/{id}/edit', 'CustomerController@edit')
+        ->name('customer.edit');
+
+Route::put('/customer/{id}','CustomerController@update')
+        ->name('customer.update');
+
+Route::delete('/customer/{id}/delete', 'CustomerController@destroy')
+        ->name('customer.destroy');
 
 
 

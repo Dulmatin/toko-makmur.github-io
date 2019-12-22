@@ -3,37 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\http\Controllers\Controller;
-use App\Unit;
+use App\Customer;
 use Illuminate\Http\Request;
+use Hash;
 
-
-class UnitController extends Controller
+class CustomerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    private $title, $view;
 
     public function __construct(
-        Unit $model
-    ) {
+    Customer $model )
+     {
         $this->model = $model;
 
-        $this->title = "Units";
-        $this->view = "unit";
+        $this->title = "Customers";
+        $this->view = "customer";
 
         view()->share('title', $this->title);
         view()->share('view', $this->view);
     }
 
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $datas = $this->model->paginate(10);
-
-        return view('pages.' . $this->view . '.index', compact('datas'));
+        return view('pages.' .$this->view. '.index', compact('datas'));
     }
 
     /**
@@ -43,7 +40,7 @@ class UnitController extends Controller
      */
     public function create()
     {
-       return view('pages.unit.create');
+        return view('pages.customer.create');
     }
 
     /**
@@ -54,14 +51,13 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
-      
+            $input = $request->all();
+            $input['password'] = Hash::make($input['password']);
 
-        $this->model->create($input);
-
-        return redirect()->route($this->view . '.index');
-     
-
+            $this->model->create($input);
+    
+            return redirect()->route($this->view . '.index');
+         
     }
 
     /**
@@ -72,7 +68,10 @@ class UnitController extends Controller
      */
     public function show($id)
     {
-       return view('unit.index',['unit'=>Unit::findOrFail($id)]);
+        $data = $this->model->findOrFail($id);
+
+        return view('pages.' . $this->view . '.show', compact('data'));
+    
     }
 
     /**
@@ -85,7 +84,7 @@ class UnitController extends Controller
     {
         $data = $this->model->findOrFail($id);
 
-        return view('pages.'. $this->view. '.edit', compact('data'));
+        return view('pages.' .$this->view. '.edit', compact('data'));
     }
 
     /**
@@ -97,14 +96,9 @@ class UnitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $input = $request->all();
-
-        $data = $this->model->findOrFail($id);
-        $data->update($input);
-
-        return redirect()->route($this->view. '.index');
-
+        //
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -113,9 +107,6 @@ class UnitController extends Controller
      */
     public function destroy($id)
     {
-        $data = $this->model->findOrfail($id);
-        $data->delete();
-
-        return redirect()->route($this->view .'.index');
+        //
     }
 }
