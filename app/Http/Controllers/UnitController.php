@@ -3,30 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\http\Controllers\Controller;
-use App\Category;
+use App\Unit;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+
+class UnitController extends Controller
 {
-    private $title, $view;
-
-    public function __construct(
-        Category $model
-    ) {
-        $this->model = $model;
-
-        $this->title = "Categories";
-        $this->view = "category";
-
-        view()->share('title', $this->title);
-        view()->share('view', $this->view);
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    private $title, $view;
+
+    public function __construct(
+        Unit $model
+    ) {
+        $this->model = $model;
+
+        $this->title = "Units";
+        $this->view = "unit";
+
+        view()->share('title', $this->title);
+        view()->share('view', $this->view);
+    }
+
+
     public function index()
     {
         $datas = $this->model->paginate(10);
@@ -41,7 +43,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('pages.' . $this->view . '.create');
+       return view('pages.unit.create');
     }
 
     /**
@@ -58,6 +60,8 @@ class CategoryController extends Controller
         $this->model->create($input);
 
         return redirect()->route($this->view . '.index');
+     
+
     }
 
     /**
@@ -68,16 +72,20 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $data = $this->model->findOrFail($id);
-
-        return view('pages.' . $this->view . '.show', compact('data'));
+       return view('unit.index',['unit'=>Unit::findOrFail($id)]);
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function edit($id)
     {
         $data = $this->model->findOrFail($id);
 
-        return view('pages.' . $this->view . '.edit', compact('data'));
+        return view('pages.'. $this->view. '.edit', compact('data'));
     }
 
     /**
@@ -94,9 +102,9 @@ class CategoryController extends Controller
         $data = $this->model->findOrFail($id);
         $data->update($input);
 
-        return redirect()->route($this->view . '.index');
-    }
+        return redirect()->route($this->view. '.index');
 
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -105,11 +113,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $data = $this->model->findOrFail($id);
+        $data = $this->model->findOrfail($id);
         $data->delete();
 
         return redirect()->route($this->view .'.index');
     }
-
-    
 }
