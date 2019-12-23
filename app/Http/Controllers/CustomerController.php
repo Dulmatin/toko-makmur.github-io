@@ -96,7 +96,12 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        $data = $this->model->findOrFail($id);
+
+        $data->update($input);
+
+        return redirect()->route($this->view. '.index');
     }
 
     /**
@@ -107,6 +112,10 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = $this->model->findOrFail($id);
+        $data->delete();
+
+        return redirect()->route($this->view.'.index' );
+
     }
 }

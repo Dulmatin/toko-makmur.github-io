@@ -19,6 +19,6 @@
         <input type="text" class="form-control" id="address" name="address" placeholder="Enter Address"
             value="{{ @$data->address }}">
         <label for="password">Password</label>
-        <input type="text" class="form-control" id="password" name="password" placeholder="Enter Password">
+        <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
     </div>
 </div>
