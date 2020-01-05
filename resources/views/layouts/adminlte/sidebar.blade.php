@@ -8,9 +8,12 @@
     <li class="nav-item has-treeview menu-open list-group-item active"">
       <a href="{{ route('unit.index') }}">Unit</a>
     </li>
-  </ul>
   <li class="nav-item has-treeview menu-open list-group-item active"">
       <a href="{{ route('customer.index') }}">Customer</a>
+    </li>
+    </li>
+  <li class="nav-item has-treeview menu-open list-group-item active"">
+      <a href="{{ route('product.index') }}">Product</a>
     </li>
   </ul>
 

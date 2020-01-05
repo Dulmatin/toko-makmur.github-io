@@ -86,4 +86,31 @@ Route::delete('/customer/{id}/delete', 'CustomerController@destroy')
         ->name('customer.destroy');
 
 
+//Prooduct
 
+Route::get('/product','ProductController@index')->name('product.index');
+Route::get('/product/create','ProductController@create')
+        ->name('product.create');
+       
+Route::post('/product/store','ProductController@store')
+        ->name('product.store');
+
+Route::get('/product/{id}', 'ProductController@show')
+        ->name('product.show');
+
+Route::get('/product/{id}/edit', 'ProductController@edit')
+        ->name('product.edit');
+
+Route::put('/product/{id}','ProductController@update')
+        ->name('product.update');
+
+Route::delete('/product/{id}/delete', 'ProductController@destroy')
+        ->name('product.destroy');
+
+
+
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

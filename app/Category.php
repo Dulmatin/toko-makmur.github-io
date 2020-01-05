@@ -10,4 +10,10 @@ class Category extends Model
     use SoftDeletes;
 
     protected $guarded = [];
+
+    public function product()
+    {
+        return $this->hasMany('App/Category','categori_id');
+    }
+
 }
