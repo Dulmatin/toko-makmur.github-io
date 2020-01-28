@@ -6,111 +6,83 @@
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
+| routes are loaded badvy the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/login', function () {
+    return view('pages.login');
 });
 
-//Route Kategori
-Route::get('/categories', 'CategoryController@index')
-        ->name('category.index');
+Route::get('/index','IndexController@index')->name('layouts.index');
 
-Route::get('category/create', 'CategoryController@create')
-        ->name('category.create');
 
-Route::post('category/store', 'CategoryController@store')
-        ->name('category.store');
-
-Route::get('category/{id}', 'CategoryController@show')
-        ->name('category.show');
-
-Route::get('category/{id}/edit', 'CategoryController@edit')
-        ->name('category.edit');
-
-Route::put('category/{id}', 'CategoryController@update')
-        ->name('category.update');
-
-Route::delete('category/{id}/delete', 'CategoryController@destroy')
-        ->name('category.destroy');
-
-//Route Unit
-Route::get('/units','UnitController@index')
-        ->name('unit.index');
-       
-
-Route::get('/unit/create', 'UnitController@create')
-        ->name('unit.create');
+Route::group(['middleware'=>['auth']],function(){
         
+        Route::get('/categories', 'Admin\CategoryController@index')->name('category.index');
+                // ->middleware(['auth','admin']);
+        Route::get('category/cari','Admin\CategoryController@cari')->name('cari');
+        // Route::get('category/create', 'CategoryController@create')->name('category.create');
+        Route::get('/category/create',
+    [ 'uses' => 'Admin\CategoryController@create', 'as'=>'category.create']);
+                // ->middleware(['auth','admin']);
+        // Route::post('category/store', 'CategoryController@store')->name('category.store');
+        Route::post('/category/store',
+    [ 'uses' => 'Admin\CategoryController@store', 'as'=>'category.store']);
+                // ->middleware(['auth','admin']);
+        Route::get('category/{id}', 'Admin\CategoryController@show')->name('category.show');
+                //  ->middleware(['auth','admin']);
+        Route::get('category/{id}/edit', 'Admin\CategoryController@edit')->name('category.edit');
+                //  ->middleware(['auth','admin']);
+        Route::put('category/{id}', 'Admin\CategoryController@update')->name('category.update');
+                //  ->middleware(['auth','admin']);
+        Route::delete('category/{id}/delete', 'Admin\CategoryController@destroy')->name('category.destroy');
+                // ->middleware(['auth','admin']);
 
-Route::post('/unit/store', 'UnitController@store')
-        ->name('unit.store');
+        //Route Unit
+        Route::get('/units','Admin\UnitController@index')->name('unit.index');
+                // ->middleware(['auth','admin'])
+        Route::get('unit/cari','Admin\UnitController@cari')->name('cari');
+        Route::get('/unit/create', 'Admin\UnitController@create')->name('unit.create');      
+        Route::post('/unit/store', 'Admin\UnitController@store')->name('unit.store');
+        Route::get('/unit/{id}', 'Admin\UnitController@show')->name('unit.show');
+        Route::get('/unit/{id}/edit', 'Admin\UnitController@edit')->name('unit.edit');
+        Route::put('/unit/{id}', 'Admin\UnitController@update')->name('unit.update');               
+        Route::delete('/unit/{id}/delete', 'Admin\UnitController@destroy')->name('unit.destroy');
 
-Route::get('/unit/{id}', 'UnitController@show')
-        ->name('unit.show');
+        //Customer 
+        Route::get('/customers','Admin\CustomerController@index')->name('customer.index');
+        Route::get('/customer/cari','Admin\CustomerController@cari')->name('cari');
+        Route::get('/customer/create','Admin\CustomerController@create')->name('customer.create');
+        Route::post('/customer/store','Admin\CustomerController@store')->name('customer.store');
+        Route::get('/customer/{id}', 'Admin\CustomerController@show')->name('customer.show');
+        Route::get('/customer/{id}/edit', 'Admin\CustomerController@edit')->name('customer.edit');
+        Route::put('/customer/{id}','Admin\CustomerController@update')->name('customer.update');
+        Route::delete('/customer/{id}/delete', 'Admin\CustomerController@destroy')->name('customer.destroy');
 
-Route::get('/unit/{id}/edit', 'UnitController@edit')
-        ->name('unit.edit');
 
-Route::put('/unit/{id}', 'UnitController@update')
-        ->name('unit.update');
+        //Prooduct
+
+        Route::get('/product','Admin\ProductController@index')->name('product.index');
+        Route::get('/product/create','Admin\ProductController@create')->name('product.create');        
+        Route::post('/product/store','Admin\ProductController@store')->name('product.store');
+        Route::get('/product/{id}', 'Admin\ProductController@show')->name('product.show');
+        Route::get('/product/{id}/edit', 'Admin\ProductController@edit')->name('product.edit');
+        Route::put('/product/{id}','Admin\ProductController@update')->name('product.update');
+        Route::delete('/product/{id}/delete', 'Admin\ProductController@destroy')->name('product.destroy');
+});
+
+
+// Route::prefix('admin')
+//         ->namespace('Admin')
+//         ->middleware(['auth','admin'])
+//         ->group(function() {
+//             Route::get('/home','HomeController@index')
+//             ->name('dashboard');
         
-Route::delete('/unit/{id}/delete', 'UnitController@destroy')
-        ->name('unit.destroy');
+//         });
 
+Auth::routes(['verify'=>true]);
 
-//Customer 
-
-Route::get('/customers','CustomerController@index')
-        ->name('customer.index');
-
-Route::get('/customer/create','CustomerController@create')
-        ->name('customer.create');
-       
-Route::post('/customer/store','CustomerController@store')
-        ->name('customer.store');
-
-Route::get('/customer/{id}', 'CustomerController@show')
-        ->name('customer.show');
-
-Route::get('/customer/{id}/edit', 'CustomerController@edit')
-        ->name('customer.edit');
-
-Route::put('/customer/{id}','CustomerController@update')
-        ->name('customer.update');
-
-Route::delete('/customer/{id}/delete', 'CustomerController@destroy')
-        ->name('customer.destroy');
-
-
-//Prooduct
-
-Route::get('/product','ProductController@index')->name('product.index');
-Route::get('/product/create','ProductController@create')
-        ->name('product.create');
-       
-Route::post('/product/store','ProductController@store')
-        ->name('product.store');
-
-Route::get('/product/{id}', 'ProductController@show')
-        ->name('product.show');
-
-Route::get('/product/{id}/edit', 'ProductController@edit')
-        ->name('product.edit');
-
-Route::put('/product/{id}','ProductController@update')
-        ->name('product.update');
-
-Route::delete('/product/{id}/delete', 'ProductController@destroy')
-        ->name('product.destroy');
-
-
-
-
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home','HomeController@index')->name('home');

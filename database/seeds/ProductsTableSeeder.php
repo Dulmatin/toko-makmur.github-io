@@ -17,8 +17,8 @@ class ProductsTableSeeder extends Seeder
        			[
        				'name' => 'ember' , 
        				'unit_id' => '1' ,
-       				'categori_id' => '1' ,
-       				'stok' => '10' ,
+       				'category_id' => '1' ,
+       				'stock' => '10' ,
        				'purchase_price' => '1000' ,
        				'sell_price' => '1500' ,
        				'image' => 'exsample'
@@ -26,8 +26,8 @@ class ProductsTableSeeder extends Seeder
        			[
        				'name' => 'panci' , 
        				'unit_id' => '1' ,
-       				'categori_id' => '1' ,
-       				'stok' => '10' ,
+       				'category_id' => '1' ,
+       				'stock' => '10' ,
        				'purchase_price' => '2000' ,
        				'sell_price' => '3000' ,
        				'image' => 'exsample'

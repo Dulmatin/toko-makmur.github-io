@@ -16,8 +16,8 @@ class Product extends Model
         return $this->belongsTo('App\Unit','unit_id'); 
     }
 
-    public function categori()
+    public function category()
     {
-        return $this->belongsTo('App\Category','categori_id'); 
+        return $this->belongsTo('App\Category','category_id'); 
     }
 }

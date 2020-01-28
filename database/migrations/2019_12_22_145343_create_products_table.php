@@ -20,11 +20,11 @@ class CreateProductsTable extends Migration
             // $table->foreign('unit_id')
             //         ->references('id')->on('units')
             //         ->onDelete('cascade');
-            $table->integer('categori_id');
+            $table->integer('category_id');
             // $table->foreign('category_id')
             //         ->references('id')->on('categories')
             //         ->onDelete('cascade');
-            $table->integer('stok');
+            $table->integer('stock');
             $table->integer('purchase_price');
             $table->integer('sell_price');
             $table->string('image');

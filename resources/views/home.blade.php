@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.adminlte.layout')
 
 @section('content')
 <div class="container">
@@ -13,9 +13,25 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in!
+                  <marquee behavior="" direction=""><b>Selamat Datang di Aplikasi DmartApp !!!</b></marquee>
                 </div>
+                <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('login') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
             </div>
         </div>
     </div>
